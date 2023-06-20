@@ -24,6 +24,16 @@ namespace System.Linq
                 .Select(gp => gp.FirstOrDefault());
         }
 
+        public static IEnumerable<T> MinBy<T>(this IEnumerable<T> items, Func<T, bool> predicate)
+        {
+
+        }
+
+        public static IEnumerable<T> MaxBy<T>(this IEnumerable<T> items, Func<T, bool> predicate)
+        {
+
+        }
+
         public static IEnumerable<int> LessThanOrEqualTo(this IEnumerable<int> items, int minValue)
             => items.Cast<double>().LessThanOrEqualTo(minValue).Cast<int>();
         public static IEnumerable<float> LessThanOrEqualTo(this IEnumerable<float> items, float minValue)
@@ -73,6 +83,38 @@ namespace System.Linq
             return minVals
                 .Where(maxEq)
                 .DefaultIfEmpty();
+        }
+
+        public static T GetNextOrDefault<T>(this IEnumerable<T> items, T item) => GetNextOrDefault<T>(items.ToList(), item);
+        public static T GetNextOrDefault<T>(this List<T> items, T item)
+        {
+            var index = items.IndexOf(item);
+            return object.Equals(item, items.Last()) ? default(T) : items[index + 1];
+        }
+
+        public static T GetPreviousOrDefault<T>(this IEnumerable<T> items, T item) => GetPreviousOrDefault<T>(items.ToList(), item);
+        public static T GetPreviousOrDefault<T>(this List<T> items, T item)
+        {
+            var index = items.IndexOf(item);
+            return object.Equals(item, items.First()) ? default(T) : items[index - 1];
+        }
+
+        public static void AddMany<T>(this IEnumerable<T> items, T item, int qty) => AddMany(items.ToList(), item, qty);
+        public static void AddMany<T>(this List<T> items, T item, int qty)
+        {
+            for (int i = 0; i < qty; i++)
+            {
+                items.Add(item);
+            }
+        }
+
+        public static List<List<T>> ChunkBy<T>(this List<T> source, int chunkSize)
+        {
+            return source
+                .Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / chunkSize)
+                .Select(x => x.Select(v => v.Value).ToList())
+                .ToList();
         }
 
     }
