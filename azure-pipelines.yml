@@ -32,26 +32,18 @@ steps:
   displayName: 'Build Solution'
   inputs:
     clean: true
-    solution: '**\*.sln'
+    solution: 'tests\**\*.sln'
     configuration: 'release'
     msbuildArchitecture: 'x64'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Run Tests'
-  inputs:
-    command: 'test'
-    projects: 'Test/**/*.csproj'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Create NuGet Package'
   inputs:
     command: 'pack'
-    packagesToPack: 'src/Linq.Extensions/*.csproj'
+    packagesToPack: 'src\**\*.csproj'
     packDirectory: 'artifacts'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'GITVERSION_NuGetVersion'
     configuration: 'release'
-
 
 - task: PublishBuildArtifacts@1
   inputs:

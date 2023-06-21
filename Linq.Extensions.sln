@@ -5,7 +5,13 @@ VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq.Extensions", "src\Linq.Extensions\Linq.Extensions.csproj", "{7892D609-C41C-4F49-8B86-6EDD2A16CBA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linq.Extensions.Tests", "Test\Linq.Extensions.Tests\Linq.Extensions.Tests.csproj", "{DCB5C07B-E2C7-4588-859C-1C85F6A5DBD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq.Extensions.Tests", "tests\Linq.Extensions.Tests\Linq.Extensions.Tests.csproj", "{DCB5C07B-E2C7-4588-859C-1C85F6A5DBD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AEFF65E3-37D9-4DA9-8D9E-5CD9B5A6AEFB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B4004760-A0C6-434D-93B7-7380B8C1E873}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq.ExtensionsNET6.Tests", "tests\Linq.ExtensionsNET6.Tests\Linq.ExtensionsNET6.Tests.csproj", "{C3298ED1-C311-4EF5-B707-6B196FCBF7C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +27,18 @@ Global
 		{DCB5C07B-E2C7-4588-859C-1C85F6A5DBD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCB5C07B-E2C7-4588-859C-1C85F6A5DBD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCB5C07B-E2C7-4588-859C-1C85F6A5DBD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3298ED1-C311-4EF5-B707-6B196FCBF7C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3298ED1-C311-4EF5-B707-6B196FCBF7C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3298ED1-C311-4EF5-B707-6B196FCBF7C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3298ED1-C311-4EF5-B707-6B196FCBF7C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7892D609-C41C-4F49-8B86-6EDD2A16CBA2} = {AEFF65E3-37D9-4DA9-8D9E-5CD9B5A6AEFB}
+		{DCB5C07B-E2C7-4588-859C-1C85F6A5DBD9} = {B4004760-A0C6-434D-93B7-7380B8C1E873}
+		{C3298ED1-C311-4EF5-B707-6B196FCBF7C8} = {B4004760-A0C6-434D-93B7-7380B8C1E873}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50475CA2-38E4-436F-A053-7C4B4D77937E}
