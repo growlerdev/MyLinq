@@ -25,6 +25,10 @@ namespace System.Linq
                 .Select(gp => gp.FirstOrDefault());
         }
 
+#if NETFRAMEWORK
+
+        //NET6.0 ADDED MINBY AND MAXBY
+
         public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             if (source == null)
@@ -96,6 +100,8 @@ namespace System.Linq
 
             return maxElement;
         }
+
+#endif
 
         public static IEnumerable<int> LessThanOrEqualTo(this IEnumerable<int> items, int minValue)
             => items.Cast<double>().LessThanOrEqualTo(minValue).Cast<int>();
