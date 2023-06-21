@@ -32,11 +32,18 @@ steps:
   displayName: 'Build Solution'
   inputs:
     clean: true
-    solution: 'tests\**\*.sln'
+    solution: '**\*.sln'
     configuration: 'release'
     msbuildArchitecture: 'x64'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Run Tests'
+  inputs:
+    command: 'test'
+    projects: 'tests\**\*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Create NuGet Package'
   inputs:
     command: 'pack'
     packagesToPack: 'src\**\*.csproj'
