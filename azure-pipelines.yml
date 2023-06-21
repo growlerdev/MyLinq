@@ -2,6 +2,7 @@ name: $(GITVERSION_SemVer)
 
 trigger:
 - release/*
+- develop
 - master
 
 pool:
