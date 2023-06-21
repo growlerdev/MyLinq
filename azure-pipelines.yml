@@ -3,7 +3,7 @@ name: $(GITVERSION_SemVer)
 trigger:
 - release/*
 - develop
-- master
+- main
 
 pool:
   name: Azure Pipelines
@@ -37,9 +37,16 @@ steps:
     msbuildArchitecture: 'x64'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Run Tests'
+  inputs:
+    command: 'test'
+    projects: 'tests\**\*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Create NuGet Package'
   inputs:
     command: 'pack'
-    packagesToPack: 'src/Linq.Extensions/*.csproj'
+    packagesToPack: 'src\**\*.csproj'
     packDirectory: 'artifacts'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'GITVERSION_NuGetVersion'

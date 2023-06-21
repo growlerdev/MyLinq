@@ -10,91 +10,20 @@ namespace System.Linq
     {
         public static IEnumerable<T> ExceptWhere<T>(this IEnumerable<T> items, Func<T, bool> predicate)
         {
-            var itemsToRemove = items.Where(predicate);
-            return items.Except(itemsToRemove);
+            var itemsToRemove = new List<T>(items.Where(predicate));
+
+            foreach (var i in items)
+            {
+                if (!itemsToRemove.Contains(i))
+                {
+                    yield return i;
+                }
+            }
         }
 
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> items)
         {
             return items == null || !items.Any();
-        }
-
-        public static IEnumerable<T> DistinctBy<T>(this IEnumerable<T> items, Func<T, bool> predicate)
-        {
-            return items.GroupBy(predicate)
-                .Select(gp => gp.FirstOrDefault());
-        }
-
-        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            if (keySelector == null)
-            {
-                throw new ArgumentNullException(nameof(keySelector));
-            }
-
-            var comparer = Comparer<TKey>.Default;
-            TSource minElement = default;
-            TKey minKey = default;
-            bool firstElement = true;
-
-            foreach (var element in source)
-            {
-                var key = keySelector(element);
-                if (firstElement || comparer.Compare(key, minKey) < 0)
-                {
-                    minElement = element;
-                    minKey = key;
-                    firstElement = false;
-                }
-            }
-
-            if (firstElement)
-            {
-                throw new InvalidOperationException("Sequence contains no elements.");
-            }
-
-            return minElement;
-        }
-
-        public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            if (keySelector == null)
-            {
-                throw new ArgumentNullException(nameof(keySelector));
-            }
-
-            var comparer = Comparer<TKey>.Default;
-            TSource maxElement = default;
-            TKey maxKey = default;
-            bool firstElement = true;
-
-            foreach (var element in source)
-            {
-                var key = keySelector(element);
-                if (firstElement || comparer.Compare(key, maxKey) > 0)
-                {
-                    maxElement = element;
-                    maxKey = key;
-                    firstElement = false;
-                }
-            }
-
-            if (firstElement)
-            {
-                throw new InvalidOperationException("Sequence contains no elements.");
-            }
-
-            return maxElement;
         }
 
         public static IEnumerable<int> LessThanOrEqualTo(this IEnumerable<int> items, int minValue)
@@ -148,21 +77,20 @@ namespace System.Linq
                 .DefaultIfEmpty();
         }
 
-        public static T GetNextOrDefault<T>(this IEnumerable<T> items, T item) => GetNextOrDefault<T>(items.ToList(), item);
-        public static T GetNextOrDefault<T>(this List<T> items, T item)
+        public static T GetNextOrDefault<T>(this IEnumerable<T> items, T item)
         {
-            var index = items.IndexOf(item);
-            return object.Equals(item, items.Last()) ? default(T) : items[index + 1];
+            var itemList = items.ToList();
+            var index = itemList.IndexOf(item);
+            return object.Equals(item, itemList.Last()) ? default(T) : itemList[index + 1];
         }
 
-        public static T GetPreviousOrDefault<T>(this IEnumerable<T> items, T item) => GetPreviousOrDefault<T>(items.ToList(), item);
-        public static T GetPreviousOrDefault<T>(this List<T> items, T item)
+        public static T GetPreviousOrDefault<T>(this IEnumerable<T> items, T item)
         {
-            var index = items.IndexOf(item);
-            return object.Equals(item, items.First()) ? default(T) : items[index - 1];
+            var itemList = items.ToList();
+            var index = itemList.IndexOf(item);
+            return object.Equals(item, itemList.First()) ? default(T) : itemList[index - 1];
         }
 
-        public static void AddMany<T>(this IEnumerable<T> items, T item, int qty) => AddMany(items.ToList(), item, qty);
         public static void AddMany<T>(this List<T> items, T item, int qty)
         {
             for (int i = 0; i < qty; i++)
@@ -170,15 +98,5 @@ namespace System.Linq
                 items.Add(item);
             }
         }
-
-        public static List<List<T>> ChunkBy<T>(this List<T> source, int chunkSize)
-        {
-            return source
-                .Select((x, i) => new { Index = i, Value = x })
-                .GroupBy(x => x.Index / chunkSize)
-                .Select(x => x.Select(v => v.Value).ToList())
-                .ToList();
-        }
-
     }
 }
