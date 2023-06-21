@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Numerics;
+using System.ComponentModel;
 
 namespace System.Linq
 {
@@ -24,14 +25,76 @@ namespace System.Linq
                 .Select(gp => gp.FirstOrDefault());
         }
 
-        public static IEnumerable<T> MinBy<T>(this IEnumerable<T> items, Func<T, bool> predicate)
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
 
+            if (keySelector == null)
+            {
+                throw new ArgumentNullException(nameof(keySelector));
+            }
+
+            var comparer = Comparer<TKey>.Default;
+            TSource minElement = default;
+            TKey minKey = default;
+            bool firstElement = true;
+
+            foreach (var element in source)
+            {
+                var key = keySelector(element);
+                if (firstElement || comparer.Compare(key, minKey) < 0)
+                {
+                    minElement = element;
+                    minKey = key;
+                    firstElement = false;
+                }
+            }
+
+            if (firstElement)
+            {
+                throw new InvalidOperationException("Sequence contains no elements.");
+            }
+
+            return minElement;
         }
 
-        public static IEnumerable<T> MaxBy<T>(this IEnumerable<T> items, Func<T, bool> predicate)
+        public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
 
+            if (keySelector == null)
+            {
+                throw new ArgumentNullException(nameof(keySelector));
+            }
+
+            var comparer = Comparer<TKey>.Default;
+            TSource maxElement = default;
+            TKey maxKey = default;
+            bool firstElement = true;
+
+            foreach (var element in source)
+            {
+                var key = keySelector(element);
+                if (firstElement || comparer.Compare(key, maxKey) > 0)
+                {
+                    maxElement = element;
+                    maxKey = key;
+                    firstElement = false;
+                }
+            }
+
+            if (firstElement)
+            {
+                throw new InvalidOperationException("Sequence contains no elements.");
+            }
+
+            return maxElement;
         }
 
         public static IEnumerable<int> LessThanOrEqualTo(this IEnumerable<int> items, int minValue)
