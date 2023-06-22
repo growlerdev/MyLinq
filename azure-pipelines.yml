@@ -3,7 +3,7 @@ name: $(GITVERSION_SemVer)
 trigger:
 - release/*
 - develop
-- master
+- main
 
 pool:
   name: Azure Pipelines
