@@ -2,7 +2,24 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
-	<LangVersion>10.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
+    <Authors>Growler</Authors>
+    <Copyright>2023</Copyright>
+    <PackageTags>Linq</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/growlerdev/Linq.Extensions</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>Linq Extensions</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Linq.Extensions.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>
