@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Linq.Extensions.Tests
+namespace MyLinq.Tests
 {
     internal class TestObject<T>
     {

@@ -8,14 +8,14 @@
     <PackageTags>Linq</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <RepositoryUrl>https://github.com/growlerdev/Linq.Extensions</RepositoryUrl>
+    <RepositoryUrl>https://github.com/growlerdev/MyLinq</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Description>Linq Extensions</Description>
+    <Description>Linq Extension Methods</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Linq.Extensions.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\MyLinq.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Linq.Extensions\Linq.Extensions.csproj" />
+    <ProjectReference Include="..\..\src\MyLinq\MyLinq.csproj" />
   </ItemGroup>
 
 </Project>

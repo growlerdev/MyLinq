@@ -1,4 +1,4 @@
-namespace Linq.Extensions.Tests
+namespace MyLinq.Tests
 {
     public class LinqTests
     {
